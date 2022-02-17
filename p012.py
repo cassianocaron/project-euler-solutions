@@ -23,7 +23,7 @@ import time
 
 from numpy import tri
 
-def main():
+def main():    
     start_time = time.process_time()
 
     num = 1
@@ -31,7 +31,7 @@ def main():
         triangle_number = find_triangle_number(num)
         triangle_factors = find_factors(triangle_number)
         num += 1
-        if len(triangle_factors) > 5:
+        if len(triangle_factors) > 500:
             break
     print(triangle_number)
     
@@ -46,7 +46,20 @@ def find_triangle_number(num):
 
 
 def find_factors(num):
-    return [n for n in range(1, num + 1) if num % n == 0]
+    factors = []
+    i = 1
+    j = num
+    while True:
+        if i * j == num:
+            factors.append(i)
+            if i == j:
+                break
+            factors.append(j) 
+        i += 1
+        j = num // i
+        if i > j:
+            break    
+    return factors
 
 
 if __name__ == '__main__':
