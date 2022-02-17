@@ -12,7 +12,7 @@ def main():
             if is_palindrome(p1 * p2):
                 largest_pal = (p1 * p2)
                 largest_p1 = p1
-                largest_p2 = p2                
+                largest_p2 = p2
             p2 -= 1
         if (largest_pal / 999) >= p1:
             break
