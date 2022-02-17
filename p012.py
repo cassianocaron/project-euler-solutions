@@ -28,20 +28,25 @@ def main():
 
     num = 1
     while True:
-        triangle_number = find_triangle_numbers(num)
+        triangle_number = find_triangle_number(num)
+        triangle_factors = find_factors(triangle_number)
         num += 1
-        if triangle_number == 28:
+        if len(triangle_factors) > 5:
             break
     print(triangle_number)
     
     print(f"The program took {round(time.process_time() - start_time, 2)} seconds to run")
 
 
-def find_triangle_numbers(num):
+def find_triangle_number(num):
     sum = 0
     for i in range(1, num + 1):
         sum += i
     return sum
+
+
+def find_factors(num):
+    return [n for n in range(1, num + 1) if num % n == 0]
 
 
 if __name__ == '__main__':
