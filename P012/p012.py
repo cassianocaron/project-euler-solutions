@@ -20,44 +20,83 @@ What is the value of the first triangle number to have over five hundred divisor
 """
 
 from time import process_time
+from math import floor, sqrt
+
 
 def main():
     start_time = process_time()
 
-    num = 1
-    while True:
-        triangle_number = find_triangle_number(num)
-        triangle_factors = find_factors(triangle_number)
-        num += 1
-        if len(triangle_factors) > 500:
-            break
-    print(triangle_number)
-    
-    print(f"The program took {round(process_time() - start_time, 2)} seconds to run")
+    prime_table = gen_prime_table()
 
+    # Start with a prime
+    n = 3
+    # Number of divisors for any prime
+    dn = 2
+    cnt = 0
+    while cnt < 500:
+        n += 1
+        n1 = n
+        if n1 % 2 == 0:
+            n1 = n1 / 2
 
-def find_triangle_number(num):
-    sum = 0
-    for i in range(1, num + 1):
-        sum += i
-    return sum
-
-
-def find_factors(num):
-    factors = []
-    i = 1
-    j = num
-    while True:
-        if i * j == num:
-            factors.append(i)
-            if i == j:
+        dn1 = 1
+        for i in range(len(prime_table)):
+            if prime_table[i] * prime_table[i] > n1:
+                dn1 = 2 * dn1
                 break
-            factors.append(j) 
-        i += 1
-        j = num // i
-        if i > j:
-            break    
-    return factors
+
+            exponent = 1
+            while n1 % prime_table[i] == 0:
+                exponent += 1
+                n1 = n1 / prime_table[i]
+
+            if exponent > 1:
+                dn1 = dn1 * exponent
+
+            if n1 == 1:
+                break
+
+        cnt = dn * dn1
+        dn = dn1
+
+    print(int(n * (n - 1) / 2))
+
+    print(f"\nTook {round(process_time() - start_time, 2)} seconds to run")
+
+
+def gen_prime_table():
+    num = 1
+    prime_array = []
+
+    # The largest expected triangle number is within a 32-bit integer
+    while num < 65500:
+        if is_prime(num):
+            prime_array.append(num)
+        num += 1
+    return prime_array
+
+
+def is_prime(n):
+    if n == 1:
+        return False
+    elif n < 4:
+        return True
+    elif n % 2 == 0:
+        return False
+    elif n < 9:
+        return True
+    elif n % 3 == 0:
+        return False
+    else:
+        r = floor(sqrt(n))
+        f = 5
+        while f <= r:
+            if n % f == 0:
+                return False
+            if n % (f + 2) == 0:
+                return False
+            f += 6
+        return True
 
 
 if __name__ == '__main__':
