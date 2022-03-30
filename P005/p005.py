@@ -1,14 +1,20 @@
-""" Find the smallest positive number that is evenly divisible by all of the numbers from 1 to 20 """
+from time import process_time
 
 
 def main():
+    start_time = process_time()
+
     n = 1
+
     while True:
         smallest = evenly_divisible(n)
+
         if smallest == n:
             print(smallest)
             break
         n += 1
+
+    print(f"\nTook {round(process_time() - start_time, 2)} seconds to run")
 
 
 def evenly_divisible(smallest):
