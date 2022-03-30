@@ -1,14 +1,17 @@
-""" Find the sum of all the multiples of 3 or 5 below 1000 """
+from time import process_time
 
 
 def main():
-    result = 0
+    start_time = process_time()
 
+    result = 0
     for n in range(1000):
         if n % 3 == 0 or n % 5 == 0:
-            result = result + n
+            result += n
 
     print(result)
+    
+    print(f"\nTook {round(process_time() - start_time, 2)} seconds to run")
 
 
 if __name__ == '__main__':
