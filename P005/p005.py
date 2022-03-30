@@ -1,27 +1,23 @@
 from time import process_time
+import math
 
 
 def main():
     start_time = process_time()
 
-    n = 1
+    num = 20
+    prime_powers = []
+    multiples = []
 
-    while True:
-        smallest = evenly_divisible(n)
+    for i in range(2, num+1):
+        if not i in multiples:
+            prime_powers.append(i ** int(math.log(num, i)))
+            multiples.extend([i * m for m in range(2, int(num // i) + 1)])
+    answer = math.prod(prime_powers)
 
-        if smallest == n:
-            print(smallest)
-            break
-        n += 1
+    print(answer)
 
     print(f"\nTook {round(process_time() - start_time, 2)} seconds to run")
-
-
-def evenly_divisible(smallest):
-    for n in range(1, 21):
-        if smallest % n != 0:
-            return
-    return smallest
 
 
 if __name__ == '__main__':
