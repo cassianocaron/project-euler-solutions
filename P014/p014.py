@@ -1,35 +1,32 @@
 from time import process_time
 
-
-STARTING_NUM = 999999
+STARTING_NUM = 10**6
 
 
 def main():
     start_time = process_time()
 
-    testing_num = STARTING_NUM
-    counter = []
+    chain_counter = {}
 
-    while testing_num > 1:
-        n = testing_num
-        count = 1
+    for n in range(1, STARTING_NUM + 1):
+        m, a = n, 1
 
-        while n > 1:
+        while n != 1:
             if n % 2 == 0:
                 n = n // 2
             else:
                 n = 3 * n + 1
-            count += 1
+            if n in chain_counter:
+                a = a + chain_counter[n]
+                break
+            else:
+                a = a + 1
+        chain_counter[m] = a
 
-        testing_num -= 1
-        counter.append(count)
+    print(max(chain_counter.items(), key=lambda x: x[1]))
 
-    max_value = max(counter)
-    number_index = counter.index(max_value)
-    number = STARTING_NUM - number_index
-    print(number)
-
-    print(f"\nTook {round(process_time() - start_time, 2)} seconds to run")
+    elapsed_time = process_time() - start_time
+    print(f"Execution time: {round(elapsed_time, 2)} seconds")
 
 
 if __name__ == '__main__':
