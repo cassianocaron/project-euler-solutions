@@ -1,22 +1,23 @@
-""" Find the 10001st prime number """
-
-import time
 import math
+from time import process_time
+
 
 LIMIT = 10001
 
+
 def main():
-    start_time = time.process_time()
+    start_time = process_time()
     count = 1
-    candidate = 1    
+    candidate = 1
     while True:
-        if is_prime(candidate):            
+        if is_prime(candidate):
             count += 1
-        if count == LIMIT:            
+        if count == LIMIT:
             print(candidate)
             break
         candidate += 2
-    print(f"The program took {round(time.process_time() - start_time, 2)} seconds to run")
+    elapsed_time = process_time() - start_time
+    print(f"Execution time: {round(elapsed_time, 2)} seconds")
 
 
 def is_prime(n):
@@ -35,12 +36,12 @@ def is_prime(n):
         f = 5
         while f <= r:
             if n % f == 0:
-                return False                
+                return False
             if n % (f + 2) == 0:
                 return False
             f += 6
         return True
 
-    
+
 if __name__ == '__main__':
     main()
