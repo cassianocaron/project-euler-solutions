@@ -24,7 +24,8 @@ def main():
                 biggest = n
     print(biggest)
 
-    print(f"Took {round(process_time() - start_time, 2)} seconds to run")
+    elapsed_time = process_time() - start_time
+    print(f"Execution time: {round(elapsed_time, 2)} seconds")
 
 
 if __name__ == '__main__':
