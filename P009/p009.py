@@ -1,25 +1,23 @@
-""" A Pythagorean triplet is a set of three natural numbers, a < b < c, for which, a² + b² = c².
-
-For example, 3² + 4² = 9 + 16 = 25 = 5².
-
-There exists exactly one Pythagorean triplet for which a + b + c = 1000.
-Find the product abc. """
-
-
-import time
+from time import process_time
 import numpy as np
 
+
 def main():
-    start_time = time.process_time()
-    pyth_trips = list(gen_all_pyth_trips(1000))    
+    start_time = process_time()
+    
+    pyth_trips = list(gen_all_pyth_trips(1000))
     for i in range(len(pyth_trips)):
         if sum(pyth_trips[i]) == 1000:
-            print(f"a = {pyth_trips[i][0]}, b = {pyth_trips[i][1]}, c = {pyth_trips[i][2]}")
-            print(f"a*b*c = {pyth_trips[i][0] * pyth_trips[i][1] * pyth_trips[i][2]}")
-            break    
-    print(f"\nThe program took {round(time.process_time() - start_time, 5)} seconds to run")
+            print(
+                f"a = {pyth_trips[i][0]}, b = {pyth_trips[i][1]}, c = {pyth_trips[i][2]}")
+            print(
+                f"a*b*c = {pyth_trips[i][0] * pyth_trips[i][1] * pyth_trips[i][2]}")
+            break
 
-    
+    elapsed_time = process_time() - start_time
+    print(f"Execution time: {round(elapsed_time, 2)} seconds")
+
+
 def gen_prim_pyth_trips(limit=None):
     u = np.mat(' 1  2  2; -2 -1 -2; 2 2 3')
     a = np.mat(' 1  2  2;  2  1  2; 2 2 3')
@@ -41,6 +39,6 @@ def gen_all_pyth_trips(limit):
             yield i
             i = i + prim
 
-    
+
 if __name__ == '__main__':
     main()
